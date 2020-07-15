@@ -57,11 +57,28 @@ export default {
     }
   },
   methods: {
+    /**
+       * 登录功能
+       * @param formName  参数
+       */
     login (formName) {
-      this.$refs[formName].validate((boolean) => {
-        // console.log(boolean)
-        const res = this.$http.post('login', this.loginForm)
-        console.log(res)
+      this.$refs[formName].validate(async (valid) => {
+        // 如果为空不提交
+        if (!valid) return false
+        // 获取请求数据
+        const { data: res } = await this.$http.post('login', this.loginForm)
+        // 弹出提示信息
+        if (res.meta.status !== 200) {
+          return this.$message({
+            message: res.meta.msg,
+            type: 'error'
+          })
+        }
+        this.$message.success(res.meta.msg)
+        // 保存session
+        window.sessionStorage.setItem('token', res.data.token)
+        // 跳转到主页
+        this.$router.push('/home')
       })
     },
     /**
