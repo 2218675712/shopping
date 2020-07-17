@@ -1,29 +1,44 @@
 <template>
   <el-container class="home_box">
     <!--    侧边栏-->
-    <el-aside :width="isCollapse?'64px':'200px'">
-      <el-scrollbar style="height: 100%;">
-      <el-row class="tac">
-        <el-col :span="24">
-          <h5>系统功能</h5>
-          <el-button class="toggle-button el-icon-s-fold" @click="toggleCollapse"></el-button>
-          <el-menu
-            default-active="2"
-            class="el-menu-vertical-demo" :collapse="isCollapse" :collapse-transition="false" router>
-            <el-submenu :index="item.path+''" :key="item.id" v-for="item in menuList">
-              <template slot="title">
-                <i :class="iconObj[item.id]"></i>
-                <span>{{item.authName}}</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item :index="subItem.path" :key="subItem.id" v-for="subItem in item.children">
-                  {{subItem.authName}}
-                </el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-          </el-menu>
-        </el-col>
-      </el-row>
+    <el-aside :width="isCollapse?'65px':'200px'">
+      <el-scrollbar wrap-class="my_wrap-hidden">
+        <el-row class="tac">
+          <el-col :span="24">
+            <h5>系统功能</h5>
+            <el-button
+              class="toggle-button el-icon-s-fold"
+              @click="toggleCollapse"
+            />
+            <el-menu
+              default-active="2"
+              class="el-menu-vertical-demo"
+              :collapse="isCollapse"
+              :collapse-transition="false"
+              router
+            >
+              <el-submenu
+                :index="item.path+''"
+                :key="item.id"
+                v-for="item in menuList"
+              >
+                <template slot="title">
+                  <i :class="iconObj[item.id]" />
+                  <span>{{ item.authName }}</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item
+                    :index="subItem.path"
+                    :key="subItem.id"
+                    v-for="subItem in item.children"
+                  >
+                    {{ subItem.authName }}
+                  </el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+            </el-menu>
+          </el-col>
+        </el-row>
       </el-scrollbar>
     </el-aside>
     <!--    主题区-->
@@ -32,11 +47,20 @@
       <el-header>
         <!--        Header-->
         <div>
-          <img src="../assets/logo.png" alt="">
+          <img
+            src="../assets/logo.png"
+            alt=""
+          >
           <span>某某公司电商管理系统</span>
         </div>
         <el-row>
-          <el-button type="danger" round @click="logout">退出登录</el-button>
+          <el-button
+            type="danger"
+            round
+            @click="logout"
+          >
+            退出登录
+          </el-button>
         </el-row>
       </el-header>
       <!--      主体-->
@@ -47,7 +71,6 @@
       <el-footer>Footer</el-footer>
     </el-container>
   </el-container>
-
 </template>
 
 <script>
@@ -80,7 +103,10 @@ export default {
       window.sessionStorage.clear()
       this.$router.push('/login')
     },
-
+    /**
+     * 获取侧边栏列表
+     * @returns {Promise<ElMessageComponent>}
+     */
     async getMenuList () {
       const { data: res } = await this.$http.get('menus')
       // 返回错误信息
@@ -147,9 +173,14 @@ export default {
       }
     }
   }
-.toggle-button{
-  width: 100%;
-  /*text-align: center;*/
-  font-size: 14px;
-}
+
+  .toggle-button {
+    width: 100%;
+    /*text-align: center;*/
+    font-size: 14px;
+  }
+
+  .el-scrollbar {
+    height: 100%;
+  }
 </style>

@@ -14,7 +14,10 @@ import {
   Submenu,
   MenuItemGroup,
   MenuItem,
-  scrollbar
+  Scrollbar,
+  Breadcrumb,
+  BreadcrumbItem,
+  Card
 } from 'element-ui'
 
 Vue.use(Button)
@@ -32,5 +35,8 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItemGroup)
 Vue.use(MenuItem)
-Vue.use(scrollbar)
+Vue.use(Scrollbar)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
+Vue.use(Card)
 Vue.prototype.$message = Message
