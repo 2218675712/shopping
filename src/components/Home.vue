@@ -1,25 +1,30 @@
 <template>
   <el-container class="home_box">
     <!--    侧边栏-->
-    <el-aside width="200px">
+    <el-aside :width="isCollapse?'64px':'200px'">
+      <el-scrollbar style="height: 100%;">
       <el-row class="tac">
         <el-col :span="24">
           <h5>系统功能</h5>
+          <el-button class="toggle-button el-icon-s-fold" @click="toggleCollapse"></el-button>
           <el-menu
             default-active="2"
-            class="el-menu-vertical-demo">
-            <el-submenu :index="item.id+''" :key="item.id" v-for="item in menuList">
+            class="el-menu-vertical-demo" :collapse="isCollapse" :collapse-transition="false" router>
+            <el-submenu :index="item.path+''" :key="item.id" v-for="item in menuList">
               <template slot="title">
                 <i :class="iconObj[item.id]"></i>
                 <span>{{item.authName}}</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item :index="subItem.id+''" :key="subItem.id" v-for="subItem in item.children">{{subItem.authName}}</el-menu-item>
+                <el-menu-item :index="subItem.path" :key="subItem.id" v-for="subItem in item.children">
+                  {{subItem.authName}}
+                </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
         </el-col>
       </el-row>
+      </el-scrollbar>
     </el-aside>
     <!--    主题区-->
     <el-container>
@@ -34,8 +39,10 @@
           <el-button type="danger" round @click="logout">退出登录</el-button>
         </el-row>
       </el-header>
-      <!--      主题-->
-      <el-main>Main</el-main>
+      <!--      主体-->
+      <el-main>
+        <router-view></router-view>
+      </el-main>
       <!--      底部-->
       <el-footer>Footer</el-footer>
     </el-container>
@@ -56,7 +63,8 @@ export default {
         101: 'el-icon-shopping-cart-full',
         102: 'el-icon-document',
         145: 'el-icon-coin'
-      }
+      },
+      isCollapse: false
     }
   },
   created () {
@@ -65,8 +73,8 @@ export default {
   // name: 'Home'
   methods: {
     /**
-     * 退出登录
-     */
+       * 退出登录
+       */
     logout () {
       // 销毁本地token
       window.sessionStorage.clear()
@@ -78,6 +86,9 @@ export default {
       // 返回错误信息
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.menuList = res.data
+    },
+    toggleCollapse () {
+      this.isCollapse = !this.isCollapse
     }
   }
 }
@@ -94,7 +105,8 @@ export default {
   .el-aside {
     background-color: #F2F6FC;
     color: #333;
-    h5{
+
+    h5 {
       text-align: center;
     }
   }
@@ -135,5 +147,9 @@ export default {
       }
     }
   }
-
+.toggle-button{
+  width: 100%;
+  /*text-align: center;*/
+  font-size: 14px;
+}
 </style>

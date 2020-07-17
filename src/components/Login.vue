@@ -78,7 +78,7 @@ export default {
         // 保存session
         window.sessionStorage.setItem('token', res.data.token)
         // 跳转到主页
-        this.$router.push('/home')
+        await this.$router.push('/home')
       })
     },
     /**
