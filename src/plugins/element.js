@@ -1,23 +1,28 @@
 import Vue from 'vue'
 import {
-  Button,
-  Form, FormItem,
-  Input,
-  Message,
-  Container,
   Aside,
-  Header,
-  Row, Main,
-  Footer,
-  Col,
-  Menu,
-  Submenu,
-  MenuItemGroup,
-  MenuItem,
-  Scrollbar,
   Breadcrumb,
   BreadcrumbItem,
-  Card
+  Button,
+  Card,
+  Col,
+  Container,
+  Footer,
+  Form,
+  FormItem,
+  Header,
+  Input,
+  Main,
+  Menu,
+  MenuItem,
+  MenuItemGroup,
+  Message,
+  Row,
+  Scrollbar,
+  Submenu,
+  Switch,
+  Table,
+  TableColumn, Tooltip
 } from 'element-ui'
 
 Vue.use(Button)
@@ -39,4 +44,8 @@ Vue.use(Scrollbar)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Card)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Switch)
+Vue.use(Tooltip)
 Vue.prototype.$message = Message
