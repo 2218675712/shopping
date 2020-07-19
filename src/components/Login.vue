@@ -29,7 +29,7 @@
             clearable
             v-model="loginForm.password"
             placeholder="密码"
-          />
+            @keyup.enter.native="login('loginForm')"/>
         </el-form-item>
         <el-form-item class="btns">
           <el-button

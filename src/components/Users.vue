@@ -16,8 +16,8 @@
       <!--      搜索和添加区域-->
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入内容">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input placeholder="请输入内容" v-model="queryInfo.query">
+            <el-button slot="append" icon="el-icon-search" @click="getUsersList"></el-button>
           </el-input>
         </el-col>
         <el-col :span="2">
@@ -36,7 +36,7 @@
             <el-switch
               v-model="scope.row.mg_state"
               active-color="#409EFF"
-              inactive-color="#909399">
+              inactive-color="#909399" @change="userStateChange(scope.row)">
             </el-switch>
           </template>
         </el-table-column>
@@ -77,6 +77,7 @@
       return {
         //获取用户列表对应的参数对象
         queryInfo: {
+          // 查询条件
           query: '',
           // 第几页
           pagenum: 1,
@@ -118,6 +119,20 @@
       handleCurrentChange (newSize) {
         this.queryInfo.pagenum = newSize
         this.getUsersList()
+      },
+      /**
+       * 修改用户状态
+       * @param userInfo
+       * @returns {Promise<ElMessageComponent>}
+       */
+      async userStateChange (userInfo) {
+        const { data: res } = await this.$http.put(`users/${userInfo.id}/state/${userInfo.mg_state}`)
+        console.log(res)
+        if (res.meta.status !== 200) {
+          userInfo.mg_state = !userInfo.mg_state
+          return this.$message.error(res.meta.msg)
+        }
+        this.$message.success(res.meta.msg)
       }
     }
   }
@@ -133,7 +148,8 @@
     width: 100%;
     margin-top: 16px;
   }
-  .el-pagination{
+
+  .el-pagination {
     margin-top: 16px;
   }
 </style>
