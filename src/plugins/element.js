@@ -7,6 +7,7 @@ import {
   Card,
   Col,
   Container,
+  Dialog,
   Footer,
   Form,
   FormItem,
@@ -16,13 +17,15 @@ import {
   Menu,
   MenuItem,
   MenuItemGroup,
-  Message, Pagination,
+  Message,
+  Pagination,
   Row,
   Scrollbar,
   Submenu,
   Switch,
   Table,
-  TableColumn, Tooltip
+  TableColumn,
+  Tooltip
 } from 'element-ui'
 
 Vue.use(Button)
@@ -49,4 +52,5 @@ Vue.use(TableColumn)
 Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
+Vue.use(Dialog)
 Vue.prototype.$message = Message
